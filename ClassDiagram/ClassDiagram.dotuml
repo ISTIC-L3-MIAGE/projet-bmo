@@ -1,55 +1,52 @@
 ClassDiagram [frame=true framecolor=steelblue label="Class Diagram"] {
+  
+ // Gestion des sports
  abstract class Sport {
-  private sportId : string
-  private typeSport : string
-  private loginStatus : Status
-  public login(email: string, password:string)
+  private id : int
+  private name : String
+  //public login(email: string, password:string)
  }
- class FootBall {
-  private footName : string
- }
+
+ class FootBall {}
  FootBall -g-> Sport
- class Tennis {
-  private tennisName : string
- }
+  
+ class Tennis {}
  Tennis -g-> Sport
-class Basket {
-  private basketName : string
- }
+  
+ class Basket {}
  Basket -g-> Sport
-class CourseDeChevaux {
-  private courseDeChevauxName : string
- }
+  
+ class CourseDeChevaux {}
  CourseDeChevaux -g-> Sport
   
-class Regle{ 
-  private regleName : string
-}
+ class Regle {
+  private id : int
+ }
  Regle "0..*" -c-> "1..1" Sport
   
-  
-abstract class Pari {
-  private sportId : string
-  private typeSport : string
-  private loginStatus : Status
-  public login(email: string, password:string)
+  // Gestion des paris
+ abstract class Pari {
+   private id : int
+   private status : String
  }
  Pari "0..*" --> "1..1" Sport : "Concerner";
   
  class PariSimple {
-  private pariSimpleName : string
+  private vainqueur : String
+  private ecartScore : int
  }
  PariSimple -g-> Pari
-class PariAvance {
-  private pariAvanceName : string
+  
+ class PariAvance {
+  private ecartScore : int
+  private intervalScore : array
  }
  PariAvance -g-> Pari
 
-class InterfaceUtilisateur{
-  private interfaceUtilisateur : string
- }
-class Parieur{
-  private parieur : string
+ class InterfaceUtilisateur {}
+  
+ class Parieur {
+  private id : int
  } 
  Parieur "0..*" --> "1..1" InterfaceUtilisateur : "S'inscrire";
  Parieur "1..1" --> "0..*" Pari : "Placer";
