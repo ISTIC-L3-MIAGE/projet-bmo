@@ -1,0 +1,18 @@
+SequenceDiagram [frame=true framecolor=steelblue label="Register SD"] {
+  actor Parieur
+  lifeline "Interface" as UI
+  lifeline "DataBase" as DB
+ 
+  Parieur --> UI "Demande d'inscription"
+  activate UI
+  Parieur <-r- UI "Envoi du formulaire"
+   deactivate UI
+  Parieur --> UI "Remplissage du formulaire"
+   activate UI
+  UI --> DB "Stockage des informations"
+  activate DB
+  DB -r-> UI "Utilisateur créé"
+   deactivate DB
+  UI -r-> Parieur "Succès"
+   deactivate UI 
+}
