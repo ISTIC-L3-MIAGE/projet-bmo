@@ -1,0 +1,25 @@
+SequenceDiagram [frame=true framecolor=steelblue label="Setup Events"] {
+  actor Bookmaker
+  lifeline "Interface" as UI
+  lifeline "Sport" as Sport
+ 
+  Bookmaker --> UI "Demander les évenements"
+  activate UI
+  Sport <-- UI "Envoi de demande des évenements d'inscription"
+  activate Sport
+  UI <-r- Sport "Réponse concernant les évenements"
+  deactivate Sport
+  Bookmaker <-r- UI "Afficahge des évenements"
+  deactivate UI
+  
+ fragment loop "Pour chaque évenement selectionné" {
+  Bookmaker --> UI "Paramétrer un pari sur l'évenement"
+   activate UI
+  UI --> Sport "Demande de sauvegarde de l'évenement"
+   activate Sport
+  UI <-r- Sport "Sauvegarde de l'évenement"
+   deactivate Sport
+  Bookmaker <-r- UI "Succès"
+   deactivate UI
+ } 
+}

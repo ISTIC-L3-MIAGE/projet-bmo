@@ -1,0 +1,48 @@
+SequenceDiagram [frame=true framecolor=steelblue label="Placing Bet"] {
+  actor Parieur
+  lifeline "Interface" as UI
+  lifeline "Sport" as Sport
+  lifeline "Pari" as Pari
+ 
+  Parieur --> UI "Demande de la liste de tous les sports"
+  activate UI
+  UI --> Sport "Envoi de la demande"
+  activate Sport
+  UI <-r- Sport "Reponse concernant la liste des sports"
+  deactivate Sport
+  Parieur <-r- UI "Affichage de la liste des sports"
+  deactivate UI
+  
+  Parieur --> UI "Choix d'un sport"
+  activate UI
+  UI --> Sport "Envoi de la demande du choix de sport"
+  activate Sport
+  UI <-r- Sport "Reponse concernant les informations du choix de sport"
+  deactivate Sport
+  Parieur <-r- UI "Affichage des informations du sport"
+  deactivate UI
+
+  Parieur --> UI "Choix d'un évenement"
+  activate UI
+  UI --> Sport "Envoi de la demande du choix de l'évenement"
+  activate Sport
+  UI <-r- Sport "Reponse concernant les informations de l'evenement choisi"
+  deactivate Sport
+  Parieur <-r- UI "Affichage des informations de l'évenement"
+  deactivate UI
+  
+  Parieur --> UI "Demander à faire un pari"
+  activate UI
+  Parieur <-r- UI "Choisir le type de pari"
+  
+ fragment alt "[Permission granted]" {
+  Parieur --> UI "Choix du type de pari"
+  Parieur <-r- UI "Entrer le montant à miser et le pronostic du pari"
+  Parieur --> UI "Mise et pronostic du pari"
+  UI --> Pari "Envoi des infos du pari"
+  activate Pari
+  UI <-r- Pari "Pari accepté"
+  deactivate Pari
+  Parieur <-r- UI "Succès"
+   
+ }
