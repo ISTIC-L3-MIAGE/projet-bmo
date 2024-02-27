@@ -9,7 +9,7 @@ SequenceDiagram [frame=true framecolor=steelblue label="Setup Events"] {
   activate Sport
   UI <-r- Sport "Réponse concernant les évenements"
   deactivate Sport
-  Bookmaker <-r- UI "Afficahge des évenements"
+  Bookmaker <-r- UI "Affichage des évenements"
   deactivate UI
   
  fragment loop "Pour chaque évenement selectionné" {

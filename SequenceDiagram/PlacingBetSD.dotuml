@@ -46,3 +46,4 @@ SequenceDiagram [frame=true framecolor=steelblue label="Placing Bet"] {
   Parieur <-r- UI "Succès"
    
  }
+ }

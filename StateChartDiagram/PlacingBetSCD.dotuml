@@ -1,0 +1,24 @@
+StateDiagram [frame=true framecolor=steelblue label="Placing Bet" splines=ortho] {
+  state PlacementUnPari
+  state PariSimple
+  state PariAvance
+  state PariRefuse
+  state PariPerdu
+  state PariGagne
+  initialState->PlacementUnPari
+  PlacementUnPari -> PariSimple "Pari Simple Choisi"
+  PariSimple -> PariRefuse "Evennement déja en cours"
+  PariRefuse -> PlacementUnPari
+  
+  PariSimple -> PariPerdu "Vainqueur ou score exact pas trouvé"
+  
+  PariSimple -> PariGagne "Vainqueur"
+  
+  PlacementUnPari -> PariAvance "Pari Avancé Choisi"
+  PariAvance -> PariPerdu "Mauvais Pronostic"
+  PariAvance -> PariGagne "Bon Pronostic"
+  
+  PariPerdu -> finalstate "Fin"
+  PariGagne -> finalstate "Fin"
+  
+}

@@ -4,14 +4,12 @@ UseCaseDiagram [frame=true framecolor=steelblue label="Usecase Diagram"] {
   actor bookmaker as "Bookmaker"
   
   // Cas d'utilisation
-  usecase placerPariSimple as "Placer un pari simple"
-  usecase placerPariAvance as "Placer un pari avancé"
+  usecase placerPari as "Placer un pari"
   usecase sinscrire as "S'inscrire"
   usecase determinerEvenement as "Déterminer et paramétrer les évènements proposés"
   
   // Associations
-  parieur -- placerPariSimple
-  parieur -- placerPariAvance
+  parieur -- placerPari
   parieur -- sinscrire
   bookmaker -- determinerEvenement
 }

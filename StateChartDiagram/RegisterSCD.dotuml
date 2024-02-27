@@ -1,0 +1,17 @@
+StateDiagram [frame=true framecolor=steelblue label="Register" splines=ortho] {
+  state SaisiInfos
+  state CodeCorrect
+  state CodeIncorrect
+  state CompteBloque
+  
+  initialState->SaisiInfos "Entrer les infos"
+  SaisiInfos -> CodeIncorrect "Mot de passe incorrect"
+  CodeIncorrect -> SaisiInfos "Entrer les infos"
+  CodeIncorrect -> CompteBloque "Plusieurs tentatives échouées"
+  
+  SaisiInfos -> CodeCorrect "Mot de passe correct"
+  
+  CompteBloque -> finalstate "Fin"
+  CodeCorrect -> finalstate "Fin"
+  
+}
