@@ -4,6 +4,7 @@ ClassDiagram [frame=true framecolor=steelblue label="Class Diagram"] {
  abstract class Sport {
   private id : int
   private name : String
+   private termine : boolean
   //public login(email: string, password:string)
  }
 
@@ -27,7 +28,8 @@ ClassDiagram [frame=true framecolor=steelblue label="Class Diagram"] {
   // Gestion des paris
  abstract class Pari {
    private id : int
-   private status : String
+   private gagne : boolean
+   private cote : int
  }
  Pari "0..*" --> "1..1" Sport : "Concerner";
   
@@ -40,14 +42,26 @@ ClassDiagram [frame=true framecolor=steelblue label="Class Diagram"] {
  class PariAvance {
   private ecartScore : int
   private intervalScore : array
+  private scoreExact : array
  }
  PariAvance -g-> Pari
 
- class InterfaceUtilisateur {}
+ class InterfaceUtilisateur {
+ }
   
  class Parieur {
   private id : int
- } 
+  private nom : String
+  private prenom : String
+  private email : String
+  private motDePasse : String
+  private solde : int
+  
+  public placerPari(evenement: Sport, type: Pari, pronostic : String, montant: int): void 
+  public crediter(montant : int) : boolean
+  private debiter(montant : int) : boolean 
+}
+
  Parieur "0..*" --> "1..1" InterfaceUtilisateur : "S'inscrire";
  Parieur "1..1" --> "0..*" Pari : "Placer";
   
