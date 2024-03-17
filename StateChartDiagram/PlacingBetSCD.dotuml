@@ -1,24 +1,16 @@
-StateDiagram [frame=true framecolor=steelblue label="Placing Bet" splines=ortho] {
-  state PlacementUnPari
-  state PariSimple
-  state PariAvance
-  state PariRefuse
-  state PariPerdu
-  state PariGagne
-  initialState->PlacementUnPari
-  PlacementUnPari -> PariSimple "Pari Simple Choisi"
-  PariSimple -> PariRefuse "Evennement déja en cours"
-  PariRefuse -> PlacementUnPari
+StateDiagram [frame=true framecolor=steelblue label="Pari" splines=ortho] {
+  state PariPlace as "Pari placé" with behavior "do/parieur.debiter(montant)"
+  state PariFerme as "Pari fermé"
+  state PariPerdu as "Pari perdu"
+  state PariGagne as "Pari gagné" with behavior "do/parieur.crediter(montant*cote)"
+  choice ResultatPari
   
-  PariSimple -> PariPerdu "Vainqueur ou score exact pas trouvé"
-  
-  PariSimple -> PariGagne "Vainqueur"
-  
-  PlacementUnPari -> PariAvance "Pari Avancé Choisi"
-  PariAvance -> PariPerdu "Mauvais Pronostic"
-  PariAvance -> PariGagne "Bon Pronostic"
-  
-  PariPerdu -> finalstate "Fin"
-  PariGagne -> finalstate "Fin"
-  
+  initialState -> PariPlace
+  PariPlace -> PariFerme "Evènement du pari terminé"
+  PariFerme -> ResultatPari "Vérification du pronostic"
+  ResultatPari -> PariGagne "[Pronostic correct]"
+  ResultatPari -> PariPerdu "[Pronostic incorrect]"
+  PariGagne -> finalstate
+  PariPerdu -> finalstate
+
 }

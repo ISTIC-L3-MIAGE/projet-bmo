@@ -1,18 +1,27 @@
-SequenceDiagram [frame=true framecolor=steelblue label="Register SD"] {
+SequenceDiagram [frame=true framecolor=steelblue label="S'inscrire"] {
   actor Parieur
-  lifeline "Interface" as UI
-  lifeline "DataBase" as DB
- 
-  Parieur --> UI "Demande d'inscription"
-  activate UI
-  Parieur <-r- UI "Envoi du formulaire"
-   deactivate UI
-  Parieur --> UI "Remplissage du formulaire"
-   activate UI
-  UI --> DB "Stockage des informations"
-  activate DB
-  DB -r-> UI "Utilisateur créé"
-   deactivate DB
-  UI -r-> Parieur "Succès"
-   deactivate UI 
+  entity "OnlineBet" as OnlineBet
+  database "Database" as DB
+
+  autonumber 1 1
+  Parieur --> OnlineBet "Demande d'inscription"
+  activate OnlineBet
+  Parieur <-r- OnlineBet "Envoi du formulaire d'inscription"
+  deactivate OnlineBet
+
+  Parieur --> OnlineBet "Remplissage du formulaire"
+  activate OnlineBet
+  OnlineBet --> OnlineBet "Validation des infos"
+
+  fragment alt "[Informations correctes]" {
+    OnlineBet --> DB "Stockage des informations"
+    activate DB
+    OnlineBet <-r- DB "Création du compte parieur réussie"
+    deactivate DB
+    Parieur <-r- OnlineBet "Utilisateur créé"
+  case "[Informations incorrectes]"
+    Parieur <-r- OnlineBet "Infos incorrectes, Echec de création du compte"
+    deactivate OnlineBet
+  }
+
 }

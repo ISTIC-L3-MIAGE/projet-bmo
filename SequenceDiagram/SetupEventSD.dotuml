@@ -1,25 +1,32 @@
-SequenceDiagram [frame=true framecolor=steelblue label="Setup Events"] {
+SequenceDiagram [frame=true framecolor=steelblue label="Déterminer et paramétrer les évènements proposés"] {
   actor Bookmaker
-  lifeline "Interface" as UI
+  entity "OnlineBet" as OnlineBet
+  database "Database" as DB
+  entity "Data Source" as DataSource
   lifeline "Sport" as Sport
  
-  Bookmaker --> UI "Demander les évenements"
-  activate UI
-  Sport <-- UI "Envoi de demande des évenements d'inscription"
-  activate Sport
-  UI <-r- Sport "Réponse concernant les évenements"
-  deactivate Sport
-  Bookmaker <-r- UI "Affichage des évenements"
-  deactivate UI
+  autonumber 1 1
+  Bookmaker --> OnlineBet "Demande la liste des évenements (sports) en cours et à venir"
+  activate OnlineBet
+  OnlineBet --> DataSource "Récupération de la liste des évènements"
+  activate DataSource
+  OnlineBet <-r- DataSource "Envoi la liste des évènements"
+  deactivate DataSource
+	Bookmaker <-r- OnlineBet "Affichage des évènements"
+  deactivate OnlineBet
   
- fragment loop "Pour chaque évenement selectionné" {
-  Bookmaker --> UI "Paramétrer un pari sur l'évenement"
-   activate UI
-  UI --> Sport "Demande de sauvegarde de l'évenement"
-   activate Sport
-  UI <-r- Sport "Sauvegarde de l'évenement"
-   deactivate Sport
-  Bookmaker <-r- UI "Succès"
-   deactivate UI
- } 
+  Bookmaker --> OnlineBet "Sélectionne des évènements à proposer"
+  activate OnlineBet
+
+  fragment loop "Pour chaque évènement selectionné" {
+    Bookmaker <-- OnlineBet "Affiche le formulaire de paramétrage d'un évènement"
+    activate Bookmaker
+    Bookmaker --> OnlineBet "Paramétrage de l'évènement (variantes, cotes, écarts, etc.)"
+    OnlineBet --> DB "Enregistrement de l'évènement et ses paramtères"
+    activate DB
+    DB --> Sport "Nouvel enregistrement"
+    OnlineBet <-r- DB "Enregistrement réussi"
+    deactivate DB
+    Bookmaker <-r- OnlineBet "Enregistrement réussi"
+  } 
 }

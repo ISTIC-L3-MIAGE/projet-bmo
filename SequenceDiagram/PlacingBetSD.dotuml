@@ -1,49 +1,43 @@
-SequenceDiagram [frame=true framecolor=steelblue label="Placing Bet"] {
+SequenceDiagram [frame=true framecolor=steelblue label="Placer un pari"] {
   actor Parieur
-  lifeline "Interface" as UI
+  entity "OnlineBet" as OnlineBet
+  database "Database" as DB
   lifeline "Sport" as Sport
   lifeline "Pari" as Pari
  
-  Parieur --> UI "Demande de la liste de tous les sports"
-  activate UI
-  UI --> Sport "Envoi de la demande"
+  autonumber 1 1
+  Parieur --> OnlineBet "Demande la liste des évènements en cours (les sports)"
+  activate OnlineBet
+  OnlineBet --> DB "Récupération des sports"
+  activate DB
+  DB --> Sport "Récupération des sports"
   activate Sport
-  UI <-r- Sport "Reponse concernant la liste des sports"
+  DB <-r- Sport "Liste des sports"
   deactivate Sport
-  Parieur <-r- UI "Affichage de la liste des sports"
-  deactivate UI
+  OnlineBet <-r- DB "Liste des sports"
+  deactivate DB
   
-  Parieur --> UI "Choix d'un sport"
-  activate UI
-  UI --> Sport "Envoi de la demande du choix de sport"
-  activate Sport
-  UI <-r- Sport "Reponse concernant les informations du choix de sport"
-  deactivate Sport
-  Parieur <-r- UI "Affichage des informations du sport"
-  deactivate UI
+  Parieur <-r- OnlineBet "Affichage de la liste des évènements en cours"
+  deactivate OnlineBet
+  
+  Parieur --> OnlineBet "Choix d'un évènement"
+  activate OnlineBet
+  Parieur <-- OnlineBet "Renvoi le formulaire de placement de pari"
+  deactivate OnlineBet
+  activate Parieur
+  Parieur --> OnlineBet "Remplit le formulaire de placement de pari (type de pari, montant parié, etc.)"
+  activate OnlineBet
+  OnlineBet --> OnlineBet "Consulation du solde du parieur"
+  
+  fragment alt "[Solde >= Montant de la mise]" {
+    OnlineBet --> DB "Enregistrement du pari"
+    activate DB
+    DB --> Pari "Nouvel enregistrement"
+    OnlineBet <-r- DB "Enregistrement du pari réussi"
+    deactivate DB
+    Parieur <-r- OnlineBet "Placement du pari réussi"
+  case "[Solde < Montant de la mise]"
+    Parieur <-r- OnlineBet "Impossible de placer un pari (solde insuffisant)"
+  }
 
-  Parieur --> UI "Choix d'un évenement"
-  activate UI
-  UI --> Sport "Envoi de la demande du choix de l'évenement"
-  activate Sport
-  UI <-r- Sport "Reponse concernant les informations de l'evenement choisi"
-  deactivate Sport
-  Parieur <-r- UI "Affichage des informations de l'évenement"
-  deactivate UI
-  
-  Parieur --> UI "Demander à faire un pari"
-  activate UI
-  Parieur <-r- UI "Choisir le type de pari"
-  
- fragment alt "[Permission granted]" {
-  Parieur --> UI "Choix du type de pari"
-  Parieur <-r- UI "Entrer le montant à miser et le pronostic du pari"
-  Parieur --> UI "Mise et pronostic du pari"
-  UI --> Pari "Envoi des infos du pari"
-  activate Pari
-  UI <-r- Pari "Pari accepté"
-  deactivate Pari
-  Parieur <-r- UI "Succès"
-   
- }
  }
