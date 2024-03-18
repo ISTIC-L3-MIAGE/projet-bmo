@@ -18,7 +18,7 @@ SequenceDiagram [frame=true framecolor=steelblue label="S'inscrire"] {
     activate DB
     OnlineBet <-r- DB "Création du compte parieur réussie"
     deactivate DB
-    Parieur <-r- OnlineBet "Utilisateur créé"
+    Parieur <-r- OnlineBet "Compte parieur créé"
   case "[Informations incorrectes]"
     Parieur <-r- OnlineBet "Infos incorrectes, Echec de création du compte"
     deactivate OnlineBet
