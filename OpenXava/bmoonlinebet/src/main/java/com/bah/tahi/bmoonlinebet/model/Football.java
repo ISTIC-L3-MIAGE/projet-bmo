@@ -1,14 +1,12 @@
-package com.bah.tahi.bmoonlinebet.generator.models;
+package com.bah.tahi.bmoonlinebet.model;
 
 import javax.persistence.*;
-
-import com.bah.tahi.bmoonlinebet.model.*;
 
 import lombok.*;
 
 @Entity
 @Getter
 @Setter
-public class FootBall extends Sport {
+public class Football extends Sport {
 
 }

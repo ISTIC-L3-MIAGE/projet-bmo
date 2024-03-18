@@ -1,13 +1,6 @@
-package com.bah.tahi.bmoonlinebet.generator.models;
-
-import java.math.*;
+package com.bah.tahi.bmoonlinebet.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.openxava.annotations.*;
-
-import com.bah.tahi.bmoonlinebet.model.*;
 
 import lombok.*;
 
@@ -17,15 +10,18 @@ import lombok.*;
 public class PariAvance extends Pari {
 
 	@Column
-	@Stereotype("ARRAY")
-	private String[] intervalScore;
-
+	Integer scoreMin;
+	
 	@Column
-	@Stereotype("ARRAY")
-	private String[] scoreExact;
-
-	@Required
-	@Min(0)
-	BigDecimal ecartScore;
-
+	Integer scoreMax;
+	
+	@Column
+	Integer ecartScore;
+	
+	@Column
+	Integer scoreExactGauche;
+	
+	@Column
+	Integer scoreExactDroit;
+	
 }

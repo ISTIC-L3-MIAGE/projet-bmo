@@ -3,6 +3,7 @@ package com.bah.tahi.bmoonlinebet.model;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;
@@ -18,34 +19,29 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-public class Sport extends Identifiable {
+abstract public class Sport extends Identifiable {
 
-	@Column(length = 50)
+	@Column
 	@Required
 	String name;
+	
+	@Column
+	@Required
+	@Min(1)
+	Double coteEquipe1;
+	
+	@Column
+	@Required
+	@Min(1)
+	Double coteEquipe2;
+	
+	@Column
+	boolean termine;
 
-	boolean termine = false;
-
-	@OneToMany(mappedBy = "sport")
-	private Collection<Regle> regles;
-
-	public Collection<Regle> getRegles() {
-		return this.regles;
-	}
-
-	public void setRegles(Collection<Regle> regles) {
-		this.regles = regles;
-	}
-
-	@OneToMany(mappedBy = "sport")
-	private Collection<Pari> paris;
-
-	public Collection<Pari> getParis() {
-		return this.paris;
-	}
-
-	public void setParis(Collection<Pari> paris) {
-		this.paris = paris;
-	}
+	@OneToMany(mappedBy = "sport", cascade = CascadeType.ALL)
+	Collection<Regle> regles;
+	
+	@OneToMany(mappedBy = "sport", cascade = CascadeType.ALL)
+	Collection<Pari> paris;
 
 }

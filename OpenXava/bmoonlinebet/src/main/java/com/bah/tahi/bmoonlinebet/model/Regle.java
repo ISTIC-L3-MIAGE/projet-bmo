@@ -12,11 +12,16 @@ import lombok.*;
 @Setter
 public class Regle extends Identifiable {
 
-	@Column(length = 255)
+	@Column
 	@Required
+	String nom;
+	
+	@Column
+	@Required
+	@TextArea
 	String description;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	private Sport sport;
+	@ManyToOne(optional = false)
+	Sport sport;
 
 }

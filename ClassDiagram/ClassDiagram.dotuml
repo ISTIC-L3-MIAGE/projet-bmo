@@ -1,9 +1,11 @@
-ClassDiagram [frame=true framecolor=steelblue label="Class Diagram"] {
+ClassDiagram [frame=true framecolor=steelblue label="Diagramme de classes"] {
 
  // Gestion des sports
  abstract class Sport {
   private id : int
   private name : String
+  private coteEquipe1 : Double
+  private coteEquipe2 : Double
   private termine : boolean
  }
 
@@ -21,6 +23,7 @@ ClassDiagram [frame=true framecolor=steelblue label="Class Diagram"] {
 
  class Regle {
   private id : int
+  private nom : String
   private description : String
  }
  Regle "0..*" -c-> "1..1" Sport
@@ -30,7 +33,6 @@ ClassDiagram [frame=true framecolor=steelblue label="Class Diagram"] {
   private id : int
   private gagne : boolean
   private montantMise : int
-  private cote : int
  }
  Pari "0..*" --> "1..1" Sport : "Concerner";
 
@@ -41,9 +43,11 @@ ClassDiagram [frame=true framecolor=steelblue label="Class Diagram"] {
  PariSimple -g-> Pari
 
  class PariAvance {
+  private scoreMin : int
+  private scoreMax : int
   private ecartScore : int
-  private intervalScore : array
-  private scoreExact : array
+  private scoreExactGauche : int
+  private scoreExactDroit : int
  }
  PariAvance -g-> Pari
 

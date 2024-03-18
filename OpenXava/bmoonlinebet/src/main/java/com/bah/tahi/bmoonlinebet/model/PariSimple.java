@@ -1,4 +1,4 @@
-package com.bah.tahi.bmoonlinebet.generator.models;
+package com.bah.tahi.bmoonlinebet.model;
 
 import java.math.*;
 
@@ -7,8 +7,6 @@ import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 
-import com.bah.tahi.bmoonlinebet.model.*;
-
 import lombok.*;
 
 @Entity
@@ -16,7 +14,7 @@ import lombok.*;
 @Setter
 public class PariSimple extends Pari {
 
-	@Column(length = 50)
+	@Column
 	@Required
 	String vainqueur;
 

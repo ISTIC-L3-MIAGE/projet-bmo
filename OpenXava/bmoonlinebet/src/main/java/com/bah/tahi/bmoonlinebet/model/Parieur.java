@@ -22,37 +22,32 @@ import lombok.*;
 @Setter
 public class Parieur extends Identifiable {
 
-	@Column(length = 50)
+	@Column
 	@Required
 	String nom;
 
-	@Column(length = 50)
+	@Column
 	@Required
 	String prenom;
 
-	@Column(length = 50)
+	@Column
 	@Required
+	@Email
 	String email;
 
-	@Column(length = 255)
+	@Column
 	@Required
 	@Password
 	String motDePasse;
 
+	@Column
 	@Required
 	@Min(0)
 	BigDecimal solde;
 
-	@OneToMany(mappedBy = "parieur")
-	private Collection<Pari> paris;
+	@OneToMany(mappedBy = "parieur", cascade = CascadeType.ALL)
+	Collection<Pari> paris;
 
-	public Collection<Pari> getParis() {
-		return this.paris;
-	}
-
-	public void setParis(Collection<Pari> paris) {
-		this.paris = paris;
-	}
 
 	public void placerPari(Sport evenement, Pari type, BigDecimal montant, String pronostic) {
 		// Pari pari = new Pari();
