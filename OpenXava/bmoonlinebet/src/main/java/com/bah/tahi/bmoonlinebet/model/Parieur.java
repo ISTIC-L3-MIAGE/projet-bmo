@@ -1,8 +1,10 @@
 package com.bah.tahi.bmoonlinebet.model;
 
 import java.math.*;
+import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;
@@ -32,27 +34,40 @@ public class Parieur extends Identifiable {
 	@Required
 	String email;
 
-	@Column(length = 50)
+	@Column(length = 255)
 	@Required
+	@Password
 	String motDePasse;
 
-	// @Required
-	// @Min(0)
+	@Required
+	@Min(0)
 	BigDecimal solde;
 
-	/*
-	 * @OneToMany(mappedBy = "parieur") private Collection<Pari> paris;
-	 * 
-	 * public void placerPari(Sport evenement, Pari type, BigDecimal montant, String
-	 * pronostic) { // }
-	 * 
-	 * public boolean crediter(BigDecimal montant) { this.solde.add(montant); return
-	 * false; }
-	 * 
-	 * public boolean debiter(BigDecimal montant) { if
-	 * (this.solde.compareTo(montant) >= 0) { this.solde.subtract(montant); return
-	 * true; }
-	 * 
-	 * return false; }
-	 */
+	@OneToMany(mappedBy = "parieur")
+	private Collection<Pari> paris;
+
+	public Collection<Pari> getParis() {
+		return this.paris;
+	}
+
+	public void setParis(Collection<Pari> paris) {
+		this.paris = paris;
+	}
+
+	public void placerPari(Sport evenement, Pari type, BigDecimal montant, String pronostic) {
+		// Pari pari = new Pari();
+	}
+
+	public void crediter(BigDecimal montant) {
+		this.solde.add(montant);
+	}
+
+	public boolean debiter(BigDecimal montant) {
+		if (this.solde.compareTo(montant) >= 0) {
+			this.solde.subtract(montant);
+			return true;
+		}
+
+		return false;
+	}
 }

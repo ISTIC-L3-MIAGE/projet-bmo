@@ -20,16 +20,32 @@ import lombok.*;
 @Setter
 public class Sport extends Identifiable {
 
-	private Collection<Pari> paris;
-	private Collection<Regle> regles;
-
 	@Column(length = 50)
 	@Required
 	String name;
 
-	// revoir boolean termine
-	// @Column(false)
-	@Required
-	boolean termine;
+	boolean termine = false;
+
+	@OneToMany(mappedBy = "sport")
+	private Collection<Regle> regles;
+
+	public Collection<Regle> getRegles() {
+		return this.regles;
+	}
+
+	public void setRegles(Collection<Regle> regles) {
+		this.regles = regles;
+	}
+
+	@OneToMany(mappedBy = "sport")
+	private Collection<Pari> paris;
+
+	public Collection<Pari> getParis() {
+		return this.paris;
+	}
+
+	public void setParis(Collection<Pari> paris) {
+		this.paris = paris;
+	}
 
 }

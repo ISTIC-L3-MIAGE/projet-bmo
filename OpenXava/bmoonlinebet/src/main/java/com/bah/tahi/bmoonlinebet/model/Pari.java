@@ -21,19 +21,19 @@ import lombok.*;
 @Setter
 public class Pari extends Identifiable {
 
-	private Parieur parieur;
-	private Sport sport;
-
-// revoir boolean gagne
-	// @Column(false)
-	@Required
-	boolean gagne;
+	boolean gagne = false;
 
 	@Required
-	@Min(0)
-	BigDecimal montant;
+	@Min(1)
+	BigDecimal montantMise;
 
 	@Required
-	@Min(0)
+	@Min(1)
 	BigDecimal cote;
+
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	private Parieur parieur;
+
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	private Sport sport;
 }
