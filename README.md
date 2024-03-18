@@ -8,6 +8,8 @@
 - Diagramme de classes
 - Diagrammes de séquences
 - Diagrammes d'états-transitions
+- Application Openxava
+- Vidéo démo
 
 ## Structure du projet
 
@@ -17,3 +19,4 @@
 - <b>SequenceDiagram</b> : Dossier contenant nos diagrammes de séquences
 - <b>StateChartDiagram</b> : Dossier contenant nos diagrammes d'états
 - <b>UseCaseDiagram</b> : Dossier contenant notre diagramme de cas d'utilisation
+- <b>Demo OnlineBet</b> : Vidéo de démonstration de l'application web
