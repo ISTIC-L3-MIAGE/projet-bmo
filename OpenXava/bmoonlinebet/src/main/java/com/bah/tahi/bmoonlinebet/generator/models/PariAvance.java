@@ -1,12 +1,29 @@
-package pariavance;
+package com.bah.tahi.bmoonlinebet.model;
+
+import java.math.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import org.openxava.annotations.*;
+
+import lombok.*;
 
 @Entity
-public class PariAvance {
+@Getter
+@Setter
+public class PariAvance extends Pari {
 
+	@Column
+	@Stereotype("ARRAY")
+	private String[] intervalScore;
 
-    // Default constructor
-    public PariAvance() {}
+	@Column
+	@Stereotype("ARRAY")
+	private String[] scoreExact;
+
+	@Required
+	@Min(0)
+	BigDecimal ecartScore;
 
 }

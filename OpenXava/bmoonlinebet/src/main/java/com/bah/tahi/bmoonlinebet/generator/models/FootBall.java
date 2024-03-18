@@ -1,12 +1,12 @@
-package football;
+package com.bah.tahi.bmoonlinebet.model;
 
 import javax.persistence.*;
 
+import lombok.*;
+
 @Entity
-public class FootBall {
-
-
-    // Default constructor
-    public FootBall() {}
+@Getter
+@Setter
+public class FootBall extends Sport {
 
 }

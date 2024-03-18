@@ -1,12 +1,12 @@
-package tennis;
+package com.bah.tahi.bmoonlinebet.model;
 
 import javax.persistence.*;
 
+import lombok.*;
+
 @Entity
-public class Tennis {
-
-
-    // Default constructor
-    public Tennis() {}
+@Getter
+@Setter
+public class Tennis extends Sport {
 
 }

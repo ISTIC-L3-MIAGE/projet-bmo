@@ -1,12 +1,12 @@
-package coursedechevaux;
+package com.bah.tahi.bmoonlinebet.model;
 
 import javax.persistence.*;
 
+import lombok.*;
+
 @Entity
-public class CourseDeChevaux {
-
-
-    // Default constructor
-    public CourseDeChevaux() {}
+@Getter
+@Setter
+public class CourseDeChevaux extends Sport {
 
 }

@@ -1,12 +1,12 @@
-package basket;
+package com.bah.tahi.bmoonlinebet.model;
 
 import javax.persistence.*;
 
+import lombok.*;
+
 @Entity
-public class Basket {
-
-
-    // Default constructor
-    public Basket() {}
+@Getter
+@Setter
+public class Basket extends Sport {
 
 }
