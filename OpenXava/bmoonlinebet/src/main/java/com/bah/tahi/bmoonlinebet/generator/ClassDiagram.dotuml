@@ -1,0 +1,68 @@
+ClassDiagram [frame=true framecolor=steelblue label="Class Diagram"] {
+  
+ // Gestion des sports
+ abstract class Sport {
+  private id : int
+  private name : String
+   private termine : boolean
+  //public login(email: string, password:string)
+ }
+
+ class FootBall {}
+ FootBall -g-> Sport
+  
+ class Tennis {}
+ Tennis -g-> Sport
+  
+ class Basket {}
+ Basket -g-> Sport
+  
+ class CourseDeChevaux {}
+ CourseDeChevaux -g-> Sport
+  
+ class Regle {
+  private id : int
+ }
+ Regle "0..*" -c-> "1..1" Sport
+  
+  // Gestion des paris
+ abstract class Pari {
+   private id : int
+   private gagne : boolean
+   private cote : int
+ }
+ Pari "0..*" --> "1..1" Sport : "Concerner";
+  
+ class PariSimple {
+  private vainqueur : String
+  private ecartScore : int
+ }
+ PariSimple -g-> Pari
+  
+ class PariAvance {
+  private ecartScore : int
+  private intervalScore : array
+  private scoreExact : array
+ }
+ PariAvance -g-> Pari
+
+ class InterfaceUtilisateur {
+ }
+  
+ class Parieur {
+  private id : int
+  private nom : String
+  private prenom : String
+  private email : String
+  private motDePasse : String
+  private solde : int
+  
+  public placerPari(evenement: Sport, type: Pari, pronostic : String, montant: int): void 
+  public crediter(montant : int) : boolean
+  private debiter(montant : int) : boolean 
+}
+
+ Parieur "0..*" --> "1..1" InterfaceUtilisateur : "S'inscrire";
+ Parieur "1..1" --> "0..*" Pari : "Placer";
+  
+}
